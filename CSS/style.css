@@ -55,10 +55,12 @@ audio{
 }
 .row{
     display: table-row;
+
 }
 .cell{
     display: table-cell;
     padding-right: 10px;
+    padding-top: 12px;
 }
 .yellowtext{
     color:yellow;

@@ -48,7 +48,7 @@ function searchForId() {
         }
     };
 }
-$title = 'Forum BVH - '.$fileContent[searchForId()]->title;
+$title = 'Forum BvH - '.$fileContent[searchForId()]->title;
 $newbuild = "";
 if (isset($_POST['submitComment'])){
     for($x=0;$x<count($fileContent);$x++){

@@ -1,13 +1,15 @@
 <?php
 session_start();
-function searchForId($search_value,$search_array) {
-    $currentItem = $search_value;
-    $fileContent = $search_array;
-    for($x=0;$x<count($fileContent);$x++){
-        if ($fileContent[$x]->title == $currentItem){
+function searchForId($search_value,$search_array,$key) {
+    $it = $search_value;
+    $ar = $search_array;
+    for($x=0;$x<count($ar);$x++){
+//        var_dump($ar[$x]);
+        if (json_decode($ar[$x])->$key == $it){
             return $x;
         }
     };
+    return false;
 }
 function hardreload(){
     echo '<script>
@@ -15,7 +17,7 @@ function hardreload(){
             window.location = baseurl;</script>';
 }
 $title = 'Forum BvH';
-include 'parts/top.php';
+
 $dir= 'Posts';
 $handle = fopen($dir.'/Posts.txt','a+');
 $fileContent = explode('<--->',fread($handle,filesize($dir.'/Posts.txt')));
@@ -57,44 +59,55 @@ if(isset($_POST['submitlogin'])){
 
 
 if(isset($_POST['submitsignup'])) {
-    $target_dir = "userImage/";
-    $target_file = $target_dir . basename($_FILES["picture"]["name"]);
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-//    var_dump($_POST);
+    $username = htmlspecialchars($_POST['username']);
+    $password = htmlspecialchars($_POST['password']);
+    $passwordcheck = htmlspecialchars($_POST['passwordcheck']);
+
+
+
+    //    var_dump($_POST);
 //    var_dump($_FILES);
 
 
 // Check if image file is a actual image or fake image
-
-    $check = getimagesize($_FILES["picture"]["tmp_name"]);
-    if($check !== false) {
-//        echo "File is an image - " . $check["mime"] . ".";
+//    echo isset($_FILES["picture"]);
+    if(isset($_FILES["picture"])&&$_FILES["picture"]['name'] != '') {
+        $target_dir = "userImage/";
+        $target_file = $target_dir . basename($_FILES["picture"]["name"]);
         $uploadOk = 1;
-    } else {
-        echo "File is not an image.";
-        $uploadOk = 0;
-    }
-    if (file_exists($target_file)) {
-        echo "Sorry, file already exists.";
-        $uploadOk = 0;
-    }
-    if ($_FILES["picture"]["size"] > 500000) {
-        echo "Sorry, your file is too large.";
-        $uploadOk = 0;
-    }
-    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif" ) {
-        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-        $uploadOk = 0;
-    }
-    if ($uploadOk == 0) {
-        echo "Sorry, your file was not uploaded.";
-    } else {
-        if (move_uploaded_file($_FILES["picture"]["tmp_name"], $target_file)) {
-            echo "The file ". basename( $_FILES["picture"]["name"]). " has been uploaded.";
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        $target_file = $target_dir . basename($username . '.' . $imageFileType);
+
+        $check = getimagesize($_FILES["picture"]["tmp_name"]);
+        if ($check !== false) {
+//        echo "File is an image - " . $check["mime"] . ".";
+            $uploadOk = 1;
         } else {
-            echo "Sorry, there was an error uploading your file.";
+            echo "File is not an image.";
+            $uploadOk = 0;
+        }
+        if (file_exists($target_file)) {
+            echo "Sorry, file already exists.";
+            $uploadOk = 0;
+        }
+        if ($_FILES["picture"]["size"] > 500000) {
+            echo "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
+        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif") {
+            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $uploadOk = 0;
+        }
+        if ($uploadOk == 0) {
+            echo "Sorry, your file was not uploaded.";
+//            $target_file = 'http://oakclifffilmfestival.com/assets/placeholder-user.png';
+        } else {
+            if (move_uploaded_file($_FILES["picture"]["tmp_name"], $target_file)) {
+                echo "The file " . basename($_FILES["picture"]["name"]) . " has been uploaded.";
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
         }
     }
 
@@ -106,9 +119,7 @@ if(isset($_POST['submitsignup'])) {
 
 
 
-    $username = htmlspecialchars($_POST['username']);
-    $password = htmlspecialchars($_POST['password']);
-    $passwordcheck = htmlspecialchars($_POST['passwordcheck']);
+
 
 
     $y = 0;
@@ -126,6 +137,7 @@ if(isset($_POST['submitsignup'])) {
             $currentUser = [
                 "username" => $username,
                 "password" => $password,
+                "bio"=>"",
                 "src" => ""
             ];
             if ($uploadOk == 1){
@@ -140,10 +152,12 @@ if(isset($_POST['submitsignup'])) {
             fwrite($loginsignuphandle, json_encode($currentUser));
             fwrite($loginsignuphandle, '<--->');
             fclose($loginsignuphandle);
-            $_SESSION['currentuser'] = $attemptusername;
+            $_SESSION['currentuser'] = $username;
             $_SESSION['sessid'] = session_id();
             setcookie('PHPSESSID',$_SESSION['sessid'],time() + 3600, "/");
-//            hardreload();
+            hardreload();
+//            echo "<script>window.location = useraccount.php?user=".$username."</script>";
+
         } else {
             echo "error";
         }
@@ -158,7 +172,7 @@ $create_post = '<div class="yellowtext">login to create posts</div>';
 //var_dump($_COOKIE);
 
 if(!isset($_SESSION[$cookie_name])) {
-    echo '<div>Welkom, guest<br>    
+    $introtext = '<div>Welkom, guest<br>    
     <button id="showhidelogin" onclick="document.getElementById(\'loginform\').style.display=\'block\';this.style.display=\'none\';document.getElementById(\'showhidesignup\').style.display=\'none\'">Login</button>
     <form name="login" method="post" id="loginform" style="display:none"><br>
         <input type="email" name="username" placeholder="username" required><br>
@@ -170,16 +184,42 @@ if(!isset($_SESSION[$cookie_name])) {
         <input type="email" name="username" placeholder="username" required><br>
         <input type="text" name="password" placeholder="password" required><br>
         <input type="text" name="passwordcheck" placeholder="password check" required><br>
-        <input type="file" name="picture" placeholder="profile image ">
+        <input type="file" name="picture" placeholder="profile image">
         <input type="submit" name="submitsignup">
     </form></div>';
 } else {
+    $currentusername = $_SESSION[$cookie_name];
+    $introtext = '<h3>Welkom, ' . $currentusername . '</h3>
+<div><a href="useraccount.php?user='.$currentusername.'"><button>your user bio</button></a></div>';
 
-    echo "<div>Welkom, " . $_SESSION[$cookie_name] . '<br>';
-    echo searchForId($_SESSION[$cookie_name],$userDB);
-    echo json_decode($userDB[searchForId($_SESSION[$cookie_name],$userDB)])->src;
-    $create_post = '
-    
+
+
+//    echo json_decode($userDB[searchForId($_SESSION[$cookie_name],$userDB,"username")])->src;
+    if (file_exists(json_decode($userDB[searchForId($_SESSION[$cookie_name],$userDB,"username")])->src))
+        {$userlogo = '<img class="logo" src="'.json_decode($userDB[searchForId($_SESSION[$cookie_name],$userDB,"username")])->src.'">';}
+    else{
+        $userlogo = '<img class="logo" src="userImage/guest.png">';
+    }
+//    $postLis = null ;
+//    for($x=0;$x<count($fileContent);$x++){
+//        if (searchForId($_SESSION[$cookie_name],$fileContent,'user')) {
+//            echo searchForId($_SESSION[$cookie_name],$fileContent,'user')d;
+//            $fileContent[$x] = json_decode($fileContent[$x]);
+//            $postLis .= '<a href="reader.php?item=' . $fileContent[$x]->title . '" class="row">';
+//            $postLis .= '<div class="cell">titel:</div>';
+//            $postLis .= '<div class="cell">' . $fileContent[$x]->title . '</div>';
+//            $postLis .= '<div class="cell">user:</div>';
+//            $postLis .= '<div class="cell" style="font-size: 0.5em;">' . $fileContent[$x]->user . '</div>';
+//            $postLis .= '</a>';
+//        }
+//    }
+//    if ($postLis != null){
+//        echo "user posts: ";
+//        $postLis .= "<hr>";
+//        echo $postLis;
+//    }
+    $create_post = null;
+    $create_post .= '
     <button onclick="document.getElementById(\'createPost\').style.display=\'table\';this.style.display=\'none\'">create post</button>
     <form id="createPost" style="display:none" method="post">
         <h4>create post</h4>
@@ -193,7 +233,7 @@ if(!isset($_SESSION[$cookie_name])) {
             <input class="cell" type="submit" name="submit">
         </div>
     </form></div>';
-    $loginbuttons = null;
+    $loginbuttons = "";
 }
 
 if(isset($_POST['submit'])){
@@ -222,21 +262,20 @@ if(isset($_POST['submit'])){
     //    json_encode($post);
 }
 
-$postList = '<div class="table">' ;
+$postList = '<div>Posts:</div><div class="table">' ;
 for($x=0;$x<count($fileContent);$x++){
     $fileContent[$x] = json_decode($fileContent[$x]);
-    $postList .= '<a href="reader.php?item='.$fileContent[$x]->title.'" class="row">';
-    $postList .= '<div class="cell">titel:</div>';
-    $postList .= '<div class="cell">'.$fileContent[$x]->title.'</div>';
+    $postList .= '<div class="row">';
+    $postList .= '<a href="reader.php?item='.$fileContent[$x]->title.'">  <div class="cell">titel:</div>';
+    $postList .= '<div class="cell">'.$fileContent[$x]->title.'</div></a>';
     $postList .= '<div class="cell">user:</div>';
-    $postList .= '<div class="cell" style="font-size: 0.5em;">'.$fileContent[$x]->user.'</div>';
-    $postList .= '</a>';
+    $postList .= '<a href="useraccount.php?user='.$fileContent[$x]->user.'"><div class="cell" style="font-size: 0.5em;">'.$fileContent[$x]->user.'</div></a>';
+    $postList .= '</div>';
 
 }
 $postList .= '</div>' ;
 
 //echo var_dump($files);
-echo $dir.':';
 //echo'<div class="itemList">';
 //var_dump($fileContent);
 //for($x=0;$x < count($files);$x++){
@@ -256,14 +295,17 @@ echo $dir.':';
 //}
 //echo"</div>";
 fclose($handle);
+include 'parts/top.php';
+
 ?>
+<?=$userlogo?>
+<?=$introtext?>
 
 
 
+<?=$postList?>
 
-    <?=$postList?>
-
-    <?=$create_post?>
+<?=$create_post?>
 
 
 
