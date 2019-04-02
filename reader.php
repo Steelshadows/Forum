@@ -1,20 +1,14 @@
 <?php
 session_start();
 $currentItem = $_GET['item'];
+include 'parts/functs.php';
+//var_dump($fileContent);
 function searchInArray($search_value,$search_array,$key) {
     $it = $search_value;
     $ar = $search_array;
     for($x=0;$x<count($ar);$x++){
 //        var_dump($ar[$x]);
-//        echo $ar[$x]."<br>".var_dump(json_decode($ar[$x]))."<br><br>";
-        if (json_decode($ar[$x])){
-//            echo"true";
-            if(json_decode($ar[$x])->$key == $it){
-//                echo"true";
-                return $x;
-            }
-        }
-        else if ($ar[$x]->$key == $it){
+        if ($ar[$x]->$key == $it){
 //            echo"false";
             return $x;
         }
@@ -22,23 +16,23 @@ function searchInArray($search_value,$search_array,$key) {
     return false;
 }
 
-$dir = 'Posts';
-$handle = fopen($dir.'/Posts.txt','a+');
-$fileContent = explode('<--->',fread($handle,filesize($dir.'/Posts.txt')));
-array_pop($fileContent);
-$loginsignupdir = 'users';
-$loginsignuphandle = fopen($loginsignupdir.'/users.txt','a+');
-$userDB = explode('<--->',fread($loginsignuphandle,filesize($loginsignupdir.'/users.txt')));
-array_pop($userDB);
+//$dir = 'Posts';
+//$handle = fopen($dir.'/Posts.txt','a+');
+//$fileContent = explode('<--->',fread($handle,filesize($dir.'/Posts.txt')));
+//array_pop($fileContent);
+//$loginsignupdir = 'users';
+//$loginsignuphandle = fopen($loginsignupdir.'/users.txt','a+');
+//$userDB = explode('<--->',fread($loginsignuphandle,filesize($loginsignupdir.'/users.txt')));
+//array_pop($userDB);
 
 
 //echo json_decode($userDB[searchInArray($fileContent[searchForId()]->user,$fileContent,"username")])->displayname;
 
 
-$fileContentblanked = $fileContent;
-for($x=0;$x<count($fileContentblanked);$x++) {
-    $fileContentblanked[$x] = json_decode($fileContentblanked[$x]);
-}
+//$fileContentblanked = $fileContent;
+//for($x=0;$x<count($fileContentblanked);$x++) {
+//    $fileContentblanked[$x] = json_decode($fileContentblanked[$x]);
+//}
 if(!isset($_SESSION['currentuser'])){
     for($x=0;$x<count($fileContentblanked);$x++){
         for($y=5;$y<(strlen($fileContentblanked[$x]->user)-3);$y++)
@@ -46,11 +40,11 @@ if(!isset($_SESSION['currentuser'])){
     }
 }
 
-
-
-for($x=0;$x<count($fileContent);$x++){
-    $fileContent[$x] = json_decode($fileContent[$x]);
-    };
+//
+//
+//for($x=0;$x<count($fileContent);$x++){
+//    $fileContent[$x] = json_decode($fileContent[$x]);
+//    };
 if (isset($_POST['submitComment'])){
     $currentComment = htmlspecialchars($_POST['commentbox']);
     $fileContent[searchForId()]->comments .= '<>'.$_SESSION['currentuser'].'>--< said:<br>'.$currentComment;
@@ -74,7 +68,7 @@ for($x=0;$x<count($allcomments);$x++){
     $displaynames = explode('>--<',$allcomments[$x]);
 //    echo $displaynames[0]."<br>";
 //    echo json_decode($userDB[searchInArray($displaynames[0],$userDB,'username')])->displayname;
-    $commentboxes .= '<div><hr>'.json_decode($userDB[searchInArray($displaynames[0],$userDB,'username')])->displayname."".$displaynames[1].'</div>';
+    $commentboxes .= '<div><hr>'.$userDB[searchInArray($displaynames[0],$userDB,'username')]->displayname."".$displaynames[1].'</div>';
 
 };
 $commentboxes .= '</div>';
@@ -124,7 +118,7 @@ if (isset($_POST['killPost'])){
 
 
 echo $killswitch;
-echo '<div><a href="index.php"><button>return</button></a></div><hr><div>'.json_decode($userDB[searchInArray($fileContent[searchForId()]->user,$userDB,"username")])->displayname.'\'s message: </div><br>';
+echo '<div><a href="index.php"><button>return</button></a></div><hr><div>'.$userDB[searchInArray($fileContent[searchForId()]->user,$userDB,"username")]->displayname.'\'s message: </div><br>';
 echo $fileContent[searchForId()]->message;
 echo $commentboxes;
 include 'parts/bottom.php';

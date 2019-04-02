@@ -1,8 +1,8 @@
 <?php
 session_start();
 $userviewer = $_GET['user'];
-$title = $userviewer."'s account";
-include 'parts/top.php';
+include 'parts/functs.php';
+//var_dump($fileContent);
 
 function searchForId() {
     global $userviewer;
@@ -67,7 +67,7 @@ if(isset($_POST['submit_edit'])){
             $uploadOk = 0;
         }
         if ($uploadOk == 0) {
-            echo "Sorry, your file was not uploaded.";
+            echo "Swuploaded.";
 //            $target_file = 'http://oakclifffilmfestival.com/assets/placeholder-user.png';
         } else {
 
@@ -129,6 +129,8 @@ if($userbio == ""){
 }
 
 
+$title = $userDB[searchForId()]->displayname."'s account";
+include 'parts/top.php';
 echo '<div><a href="index.php"><button>return</button></a></div><hr>';
 echo $userbio;
 echo $userlogo;
