@@ -1,27 +1,29 @@
 <?php
 session_start();
 function searchForId($search_value,$search_array,$key) {
+//    var_dump($search_value);
+//    var_dump($search_array);
+//    var_dump($key);
     $it = $search_value;
     $ar = $search_array;
     for($x=0;$x<count($ar);$x++){
-//        var_dump($ar[$x]);
-        if (json_decode($ar[$x])->$key == $it){
-            return $x;
-        }
+//        if (json_decode($ar[$x])->$key == $it){
+//            return $x;
+//        }
+
+        if($ar[$x]->$key == $it){return $x;}
     };
     return false;
 }
-function hardreload(){
-    echo '<script>
-            baseurl = location.protocol + \'//\' + location.host + location.pathname;
-            window.location = baseurl;</script>';
-}
-$title = 'Forum BvH';
 
-$dir= 'Posts';
-$handle = fopen($dir.'/Posts.txt','a+');
-$fileContent = explode('<--->',fread($handle,filesize($dir.'/Posts.txt')));
-array_pop($fileContent);
+$title = 'Forum BvH';
+include 'parts/top.php';
+
+
+//$dir= 'Posts';
+//$handle = fopen($dir.'/Posts.txt','a+');
+//$fileContent = explode('<--->',fread($handle,filesize($dir.'/Posts.txt')));
+//array_pop($fileContent);
 //var_dump($_POST);
 
 
@@ -33,12 +35,27 @@ array_pop($fileContent);
 //array_shift($files);
 //array_shift($files);
 //array_reverse($files);
-$loginsignupdir = 'users';
-$loginsignuphandle = fopen($loginsignupdir.'/users.txt','a+');
-$userDB = explode('<--->',fread($loginsignuphandle,filesize($loginsignupdir.'/users.txt')));
-array_pop($userDB);
-//var_dump(json_decode($userDB[searchForId($)])->src);
 
+//var_dump(json_decode($userDB[searchForId($)])->src);
+$userDBblanked = $userDB;
+$fileContentblanked = $fileContent;
+
+//for($x=0;$x<count($userDBblanked);$x++) {
+//    $userDBblanked[$x] = json_decode($userDBblanked[$x]);
+//}
+//for($x=0;$x<count($fileContentblanked);$x++) {
+//    $fileContentblanked[$x] = json_decode($fileContentblanked[$x]);
+//}
+//if(!isset($_SESSION['currentuser'])){
+//    for($x=0;$x<count($userDB);$x++){
+//        for($y=5;$y<(strlen($userDBblanked[$x]->username)-3);$y++)
+//            $userDBblanked[$x]->username[$y] = "*";
+//    }
+//    for($x=0;$x<count($fileContentblanked);$x++){
+//        for($y=5;$y<(strlen($fileContentblanked[$x]->user)-3);$y++)
+//            $fileContentblanked[$x]->user[$y] = "*";
+//    }
+//}
 
 if(isset($_POST['submitlogin'])){
 //    var_dump($_POST);
@@ -46,12 +63,12 @@ if(isset($_POST['submitlogin'])){
     $attemptpassword = htmlspecialchars($_POST['password']);
     for ($x=0;$x<count($userDB);$x++){
 //        echo $userDB[$x];
-        $userDB[$x] = json_decode($userDB[$x]);
+//        $userDB[$x] = json_decode($userDB[$x]);
         if ($attemptusername == $userDB[$x]->username && $attemptpassword == $userDB[$x]->password){
             $_SESSION['currentuser'] = $attemptusername;
             $_SESSION['sessid'] = session_id();
             setcookie('PHPSESSID',$_SESSION['sessid'],time() + 3600, "/");
-            hardreload();
+            hardreload(null);
         }
 
     }
@@ -60,6 +77,7 @@ if(isset($_POST['submitlogin'])){
 
 if(isset($_POST['submitsignup'])) {
     $username = htmlspecialchars($_POST['username']);
+    $displayname = htmlspecialchars($_POST['displayname']);
     $password = htmlspecialchars($_POST['password']);
     $passwordcheck = htmlspecialchars($_POST['passwordcheck']);
 
@@ -136,6 +154,7 @@ if(isset($_POST['submitsignup'])) {
         if ($password == $passwordcheck) {
             $currentUser = [
                 "username" => $username,
+                "displayname" => $displayname,
                 "password" => $password,
                 "bio"=>"",
                 "src" => ""
@@ -155,48 +174,81 @@ if(isset($_POST['submitsignup'])) {
             $_SESSION['currentuser'] = $username;
             $_SESSION['sessid'] = session_id();
             setcookie('PHPSESSID',$_SESSION['sessid'],time() + 3600, "/");
-            hardreload();
+            hardreload(null);
 //            echo "<script>window.location = useraccount.php?user=".$username."</script>";
 
         } else {
             echo "error";
         }
     } else {
-        echo '<script>alert("username moet uniek zijn");</script>';
+        echo '<script>alert("username already exists");</script>';
     }
 }
 
 
 $cookie_name = 'currentuser';
 $create_post = '<div class="yellowtext">login to create posts</div>';
+$userlogo = null;
 //var_dump($_COOKIE);
 
 if(!isset($_SESSION[$cookie_name])) {
     $introtext = '<div>Welkom, guest<br>    
-    <button id="showhidelogin" onclick="document.getElementById(\'loginform\').style.display=\'block\';this.style.display=\'none\';document.getElementById(\'showhidesignup\').style.display=\'none\'">Login</button>
-    <form name="login" method="post" id="loginform" style="display:none"><br>
-        <input type="email" name="username" placeholder="username" required><br>
-        <input type="text" name="password" placeholder="password" required><br>
-        <input type="submit" name="submitlogin">
+    <button id="showhidelogin" onclick="document.getElementById(\'loginform\').style.display=\'table\';this.style.display=\'none\';document.getElementById(\'showhidesignup\').style.display=\'none\'">Login</button>
+    <form name="login" method="post" id="loginform" style="display:none">
+        <div class="row">
+            <div class="cell">username: </div>
+            <div class="cell"><input type="text" name="username" placeholder="username" required></div>
+        </div> 
+        <div class="row">
+            <div class="cell">password:</div>
+            <div class="cell"><input type="password" name="password" placeholder="password" required></div>
+        </div> 
+        <div class="row">
+            <div class="cell"></div>
+            <div class="cell"><input type="submit" name="submitlogin" value="login"></div>
+        </div> 
     </form>
-    <button id="showhidesignup" onclick="document.getElementById(\'signupform\').style.display=\'block\';this.style.display=\'none\';document.getElementById(\'showhidelogin\').style.display=\'none\'">Signup</button>
+    <button id="showhidesignup" onclick="document.getElementById(\'signupform\').style.display=\'table\';this.style.display=\'none\';document.getElementById(\'showhidelogin\').style.display=\'none\'">Signup</button>
     <form name="signup" method="post" id="signupform" style="display:none" enctype="multipart/form-data">
-        <input type="email" name="username" placeholder="username" required><br>
-        <input type="text" name="password" placeholder="password" required><br>
-        <input type="text" name="passwordcheck" placeholder="password check" required><br>
-        <input type="file" name="picture" placeholder="profile image">
-        <input type="submit" name="submitsignup">
+        <div class="row">
+            <div class="cell">Username: </div>
+            <div class="cell"><input type="text" name="username" placeholder="username" required></div>
+        </div>
+        <div class="row">
+            <div class="cell">Displayname: </div>
+            <div class="cell"><input type="text" name="displayname" placeholder="username" required></div>
+        </div> 
+        <div class="row">
+            <div class="cell">Password:</div>
+            <div class="cell"><input type="password" name="password" placeholder="password" required></div>
+        </div> 
+        <div class="row">
+            <div class="cell">Password check:</div>
+            <div class="cell"><input type="password" name="passwordcheck" placeholder="password check" required></div>
+        </div> 
+        <div class="row">
+            <div class="cell">Profile Picture:</div>
+            <div class="cell"><input type="file" name="picture" placeholder="profile image"></div>
+        </div> 
+        <div class="row">
+            <div class="cell"></div>
+            <div class="cell"><input type="submit" name="submitsignup" value="sign-in"></div>
+        </div> 
     </form></div>';
 } else {
     $currentusername = $_SESSION[$cookie_name];
     $introtext = '<h3>Welkom, ' . $currentusername . '</h3>
-<div><a href="useraccount.php?user='.$currentusername.'"><button>your user bio</button></a></div>';
+<div><a href="useraccount.php?user='.$currentusername.'"><button>your user bio</button></a></div>
+<form action="" method="post"><input type="submit" name="logout" value="logout"></form>';
 
 
 
 //    echo json_decode($userDB[searchForId($_SESSION[$cookie_name],$userDB,"username")])->src;
-    if (file_exists(json_decode($userDB[searchForId($_SESSION[$cookie_name],$userDB,"username")])->src))
-        {$userlogo = '<img class="logo" src="'.json_decode($userDB[searchForId($_SESSION[$cookie_name],$userDB,"username")])->src.'">';}
+//    var_dump($userDB);
+    if (file_exists($userDB[searchForId($_SESSION[$cookie_name],$userDB,"username")]->src)) {
+//            var_dump($userDB);
+            $userlogo = '<img class="logo" src="'.$userDB[searchForId($_SESSION[$cookie_name],$userDB,"username")]->src.'">';
+    }
     else{
         $userlogo = '<img class="logo" src="userImage/guest.png">';
     }
@@ -226,36 +278,53 @@ if(!isset($_SESSION[$cookie_name])) {
 <!--        <label for="user">user: </label><input type="email" name="user" required><br><br>-->
         <div class="row">
             <input class="cell" type="hidden" name="user" required value="'.$_SESSION[$cookie_name].'">
-            <label class="cell" for="title">title: </label><input type="text" name="title" required><br><br>
+            <label class="cell responsive_hide" for="title">title: </label><input class="responsive_100_wide" type="text" name="title" maxlength="20" placeholder="Title" required><br><br>
         </div>
         <div class="row">        
-            <label class="cell" for="message">post: </label><textarea name="message" required></textarea><br><br>
-            <input class="cell" type="submit" name="submit">
+            <label class="cell responsive_hide" for="message">post: </label><textarea class="responsive_100_wide" name="message" placeholder="Post" required></textarea><br><br>
         </div>
+        <div class="row">
+            <div class="cell responsive_hide">
+                Recapcha:     
+            </div>
+            <div class="cell">
+                <div class="g-recaptcha responsive_100_wide" data-sitekey="6LdmupkUAAAAAMojiX7nQeH7jUE-YqIEQPpoWxAe"></div>
+            </div>
+        </div>  
+        <div class="row">
+            <div class="cell responsive_hide">
+            </div>
+            <div class="cell">
+                <input class="cell responsive_100_wide" type="submit" name="submit" value="submit post">
+            </div>
+        </div>  
     </form></div>';
     $loginbuttons = "";
+
 }
 
-if(isset($_POST['submit'])){
-    $postTitel = htmlspecialchars($_POST['title']);
-    $postUser = htmlspecialchars($_POST['user']);
+if(isset($_POST['submit'])&&isset($_SESSION['currentuser'])&&$response != null && $response->success){
+//    var_dump($_POST['g-recaptcha-response']);
+    $postTitel = Substr(htmlspecialchars($_POST['title']), 0, 20);
+    $postUser = htmlspecialchars($_SESSION['currentuser']);
     $postMessage =htmlspecialchars($_POST['message']);
     $y = 0;
     for($x=0;$x<count($fileContent);$x++){
 //        $fileContent[$x] = json_decode($fileContent[$x]);
-        if ($postTitel != json_decode($fileContent[$x])->title){
+        if ($postTitel != $fileContent[$x]->title){
             $y += 0;
         }
         else {$y++;}
     }
 //    echo $y;
     if ($y == 0){
-        $post = ['title'=>$postTitel,'user'=>$postUser,'message'=>$postMessage,'comments'=>''];
+        $post = ['title'=>$postTitel,'user'=>$postUser,'message'=>$postMessage,'comments'=>$postUser.'>--< created this post on: '.date("Y-m-d H:i:s")];
         fwrite($handle,json_encode($post));
         fwrite($handle,'<--->');
+        hardreload(null);
     }
     else{
-        echo '<script>alert("titel niet uniek");</script>';
+        echo '<script>alert("titel bestaat al");</script>';
     }
 //    $jCode = json_encode($post);
 
@@ -263,17 +332,31 @@ if(isset($_POST['submit'])){
 }
 
 $postList = '<div>Posts:</div><div class="table">' ;
+$postListresponsive = "<div class=\"responsive_table\">";
+
+
+
 for($x=0;$x<count($fileContent);$x++){
-    $fileContent[$x] = json_decode($fileContent[$x]);
+//    $fileContent[$x] = json_decode($fileContent[$x]);
     $postList .= '<div class="row">';
+//    var_dump($fileContent[$x]);
     $postList .= '<a href="reader.php?item='.$fileContent[$x]->title.'">  <div class="cell">titel:</div>';
-    $postList .= '<div class="cell">'.$fileContent[$x]->title.'</div></a>';
+    $postList .= '<div class="cell">'.$fileContentblanked[$x]->title.'</div></a>';
     $postList .= '<div class="cell">user:</div>';
-    $postList .= '<a href="useraccount.php?user='.$fileContent[$x]->user.'"><div class="cell" style="font-size: 0.5em;">'.$fileContent[$x]->user.'</div></a>';
+    $postList .= '<a href="useraccount.php?user='.$fileContent[$x]->user.'"><div class="cell" style="font-size: 0.5em;">';
+    $postList .= $userDB[searchForId($fileContent[$x]->user,$userDB,"username")]->displayname.'</div></a>';
     $postList .= '</div>';
 
+    $postListresponsive .= '<div class="row">';
+    $postListresponsive .= '<a href="reader.php?item='.$fileContent[$x]->title.'">  <div class="cell">titel:</div>';
+    $postListresponsive .= '<div class="cell">'.$fileContentblanked[$x]->title.'</div></a>';
+    $postListresponsive .= '</div><div class="row">';
+    $postListresponsive .= '<a href="useraccount.php?user='.$fileContent[$x]->user.'"><div class="cell">user:</div>';
+    $postListresponsive .= '<div class="cell">'.$userDB[searchForId($fileContent[$x]->user,$userDB,"username")]->displayname.'</div></a>';
+    $postListresponsive .= '</div><div class="row"><hr></div>';
+
 }
-$postList .= '</div>' ;
+$postList .= '</div>'.$postListresponsive."</div>" ;
 
 //echo var_dump($files);
 //echo'<div class="itemList">';
@@ -295,11 +378,10 @@ $postList .= '</div>' ;
 //}
 //echo"</div>";
 fclose($handle);
-include 'parts/top.php';
 
 ?>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 <?=$userlogo?>
-<?=$introtext?>
 
 
 

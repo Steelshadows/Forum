@@ -1,16 +1,32 @@
 html{
     background-color: black;
-    background-image: linear-gradient(to bottom,black,darkred);
+    background-image: linear-gradient(to bottom,black,darkblue);
     background-repeat: no-repeat;
     background-attachment: fixed;
     height:100%;
     color:white;
     font-size:25px;
 }
+header{
+    margin-bottom: 20px;
+    border-bottom: white double 4px;
+}
+input[type="submit"], button{
+    border:black 3px solid;
+    background-color: darkblue;
+    color: white;
+    border-radius: 10px;
+    display: inline-block;
+}
+input[type="submit"]:hover , button:hover{
+    /*border-color: blue;*/
+    background-color: darkorange;
+}
 .masterContainer{
+    position: relative;
     margin:15px 5%;
     width:90%;
-    background-color: darkred;
+    background-color: black;
     padding:5px;
 }
 .item{
@@ -23,8 +39,8 @@ html{
     width:15%;
     /*display: block;*/
     float:right;
-    position: relative;
-    top:-90px;
+    position: absolute;
+    top:0px;
     right:10px;
 }
 a{
@@ -61,6 +77,7 @@ audio{
     display: table-cell;
     padding-right: 10px;
     padding-top: 12px;
+    max-width: 23%;
 }
 .yellowtext{
     color:yellow;
@@ -69,10 +86,42 @@ textarea{
     min-width: 250px;
     min-height: 75px;
 }
+.responsive_table{
+    display: none;
+}
+.avatar{
+    width:60px;
+}
 @media only screen and (max-width: 400px){
+    html{
+        font-size: 17px;
+    }
     audio{
         max-width: 70%;
         display: block;
+    }
+    input[type="submit"], button{
+        width: 90%;
+        height:40px;
+        margin:5%;
+    }
+    .table{
+        display: none;
+    }
+    .responsive_hide{
+        display: none;
+    }
+    .responsive_table{
+        display: table;
+    }
+    .responsive_100_wide{
+        max-width:100%;
+        width:90%;
+    }
+    .responsive_table .row .cell{
+        padding-top: 20px;
+        max-width: 45%;
+
     }
     .itemList{
         display: flex;
@@ -88,6 +137,7 @@ textarea{
         margin:5%;
     }
     .logo{
+        position: relative;
         width:90%;
         margin:5%;
         top:0;

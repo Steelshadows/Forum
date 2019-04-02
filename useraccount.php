@@ -2,30 +2,36 @@
 session_start();
 $userviewer = $_GET['user'];
 $title = $userviewer."'s account";
+include 'parts/top.php';
+
 function searchForId() {
     global $userviewer;
     global $userDB;
     for($x=0;$x<count($userDB);$x++){
-        if ($userDB[$x]->username == $userviewer){
+        if ($userDB[$x]->username == $userviewer) {
             return $x;
         }
+//        else if (json_decode($userDB[$x])){
+//            if (json_decode($userDB[$x])->username == $userviewer){
+//                return $x;
+//            }
+//        }
     };
 }
-function hardreload(){
-    global $userviewer;
-    echo '<script>
-            baseurl = location.protocol + \'//\' + location.host + location.pathname+"?user="'.$userviewer.';
-            window.location = baseurl;</script>';
+$userviewerBlanked = $userviewer;
+if(!isset($_SESSION['currentuser'])){
+    for($y=5;$y<(strlen($userviewerBlanked)-3);$y++)
+        $userviewerBlanked[$y] = "*";
 }
-
-
-$loginsignupdir = 'users';
-$loginsignuphandle = fopen($loginsignupdir.'/users.txt','a+');
-$userDB = explode('<--->',fread($loginsignuphandle,filesize($loginsignupdir.'/users.txt')));
-array_pop($userDB);
-for($x=0;$x<count($userDB);$x++){
-    $userDB[$x] = json_decode($userDB[$x]);
-};
+//$loginsignupdir = 'users';
+//$loginsignuphandle = fopen($loginsignupdir.'/users.txt','a+');
+//$userDB = explode('<--->',fread($loginsignuphandle,filesize($loginsignupdir.'/users.txt')));
+//array_pop($userDB);
+//for($x=0;$x<count($userDB);$x++){
+//    $userDB[$x] = json_decode($userDB[$x]);
+//};
+//var_dump($userDB);
+//echo searchForId();
 $userbio = $userDB[searchForId()]->bio;
 
 
@@ -51,10 +57,10 @@ if(isset($_POST['submit_edit'])){
             echo "File is not an image.";
             $uploadOk = 0;
         }
-//        if ($_FILES["picture"]["size"] > 500000) {
-//            echo "Sorry, your file is too large.";
-//            $uploadOk = 0;
-//        }
+        if ($_FILES["picture"]["size"] > 500000) {
+            echo "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
         if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
             && $imageFileType != "gif") {
             echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
@@ -75,8 +81,14 @@ if(isset($_POST['submit_edit'])){
             }
         }
     }
+
+//    for($x=0;$x<count($userDB);$x++){
+//    $userDB[$x] = json_decode($userDB[$x]);
+//    };
     $new_bio = htmlspecialchars($_POST["bio_edit"]);
     $userDB[searchForId()]->bio = $new_bio;
+    $new_displayname = htmlspecialchars($_POST['displayname_edit']);
+    $userDB[searchForId()]->displayname = $new_displayname;
 
 
     for($x=0;$x<count($userDB);$x++){
@@ -84,9 +96,11 @@ if(isset($_POST['submit_edit'])){
     }
 //    echo $newbuild;
     $overwrite = fopen('users/users.txt','w+');
+//    var_dump(file_get_contents('users/users.txt'));
     fwrite($overwrite,$newbuild);
+//    var_dump(file_get_contents('users/users.txt'));
     fclose($overwrite);
-    hardreload();
+    hardreload("?user=".$userviewer);
 
 
 }
@@ -95,8 +109,9 @@ if(isset($_SESSION['currentuser'])) {
     if ($_SESSION['currentuser'] == $userviewer){
         $editaccountinfo = '
         <div><hr><form method="post" action="useraccount.php?user=' . $userviewer . '" enctype="multipart/form-data">
-        <textarea name="bio_edit" placeholder="your personal bio" required>'.$userbio.'</textarea>
-        <input type="file" name="picture" placeholder="profile image">
+        <div><textarea name="bio_edit" class="responsive_100_wide" placeholder="your personal bio" required>'.$userbio.'</textarea></div>
+        <div><input type="text" class="responsive_100_wide" name="displayname_edit" placeholder="display name" value="'.$userDB[searchForId()]->displayname.'"></div>
+        <div><input type="file" class="responsive_100_wide" name="picture" placeholder="profile image"></div>
         <input type="submit" name="submit_edit"></form>';
     }
     else {
@@ -114,7 +129,6 @@ if($userbio == ""){
 }
 
 
-include 'parts/top.php';
 echo '<div><a href="index.php"><button>return</button></a></div><hr>';
 echo $userbio;
 echo $userlogo;
