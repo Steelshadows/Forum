@@ -67,7 +67,7 @@ if(isset($_POST['logout'])){
 if (!isset($_SESSION[$cookie_name])) {
     $introtext = '<div>Welkom, guest<br>    
 <button id="showhidelogin" onclick="document.getElementById(\'loginform\').style.display=\'table\';this.style.display=\'none\';document.getElementById(\'showhidesignup\').style.display=\'none\'">Login</button>
-<form name="login" method="post" id="loginform" style="display:none">
+<form name="login" action="/index.php" method="post" id="loginform" style="display:none">
     <div class="row">
         <div class="cell">username: </div>
         <div class="cell"><input type="text" name="username" placeholder="username" required></div>

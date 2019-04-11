@@ -2,16 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ff2c76b-1ba3-41df-94b4-47c973ea649e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/parts/functs.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Posts/Posts.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Posts/Posts.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parts/top.php" beforeDir="false" afterPath="$PROJECT_DIR$/parts/top.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parts/functs.php" beforeDir="false" afterPath="$PROJECT_DIR$/parts/functs.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/reader.php" beforeDir="false" afterPath="$PROJECT_DIR$/reader.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/userImage/rein@vh.nl.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/userImage/test.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/userImage/test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/userImage/test@test.nu.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/userImage/trapUwU@owo.com.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/userImage/its.a.me.brand@gmail.com.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/userImage/its.a.me.brand@gmail.com.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/useraccount.php" beforeDir="false" afterPath="$PROJECT_DIR$/useraccount.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users/users.txt" beforeDir="false" afterPath="$PROJECT_DIR$/users/users.txt" afterDir="false" />
     </list>
@@ -26,20 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="592">
-              <caret line="305" column="3" lean-forward="true" selection-start-line="195" selection-start-column="3" selection-end-line="305" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reader.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
+            <state relative-caret-position="97">
+              <caret line="321" column="18" selection-start-line="321" selection-start-column="18" selection-end-line="321" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -47,8 +35,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parts/functs.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="37" column="5" lean-forward="true" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
+            <state relative-caret-position="544">
+              <caret line="32" column="53" selection-start-line="32" selection-start-column="53" selection-end-line="32" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -56,31 +44,35 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/useraccount.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1357">
-              <caret line="131" column="44" selection-start-line="131" selection-start-column="44" selection-end-line="131" selection-end-column="44" />
+            <state relative-caret-position="188">
+              <caret line="114" column="48" selection-start-line="114" selection-start-column="48" selection-end-line="114" selection-end-column="62" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parts/top.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="8" lean-forward="true" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
+            <state>
+              <caret column="5" selection-start-column="5" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/users/users.txt">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="216" selection-end-column="216" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/users/template.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="49" selection-start-column="49" selection-end-column="49" />
+              <caret column="123" selection-start-column="123" selection-end-column="128" />
             </state>
           </provider>
         </entry>
@@ -89,7 +81,7 @@
         <entry file="file://$PROJECT_DIR$/Posts/Posts.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="201" lean-forward="true" selection-start-column="201" selection-end-column="201" />
+              <caret column="151" selection-start-column="151" selection-end-column="151" />
             </state>
           </provider>
         </entry>
@@ -98,7 +90,7 @@
         <entry file="file://$PROJECT_DIR$/recapchalib.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
-              <caret line="30" column="3" lean-forward="true" selection-start-line="1" selection-start-column="3" selection-end-line="30" selection-end-column="3" />
+              <caret line="30" column="3" selection-start-line="1" selection-start-column="3" selection-end-line="30" selection-end-column="3" />
               <folding>
                 <element signature="e#6#1510#0#PHP" expanded="true" />
               </folding>
@@ -109,7 +101,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CSS/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
+            <state relative-caret-position="664">
               <caret line="118" column="16" selection-start-line="118" selection-start-column="16" selection-end-line="118" selection-end-column="16" />
             </state>
           </provider>
@@ -119,8 +111,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>searchInArray</find>
-      <find>hard</find>
       <find>titl</find>
       <find>delete</find>
       <find>delet</find>
@@ -134,7 +124,6 @@
       <find>$crea</find>
       <find>sub</find>
       <find>subm</find>
-      <find>create</find>
       <find>json_decode($filecontent</find>
       <find>submits</find>
       <find>userDB</find>
@@ -149,6 +138,9 @@
       <find>searchInArray(</find>
       <find>$userDB</find>
       <find>json_decode</find>
+      <find>create</find>
+      <find>userlogo</find>
+      <find>date</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -165,12 +157,12 @@
         <option value="$PROJECT_DIR$/Posts/test.json" />
         <option value="$PROJECT_DIR$/users/template.txt" />
         <option value="$PROJECT_DIR$/users/users.txt" />
-        <option value="$PROJECT_DIR$/Posts/Posts.txt" />
         <option value="$PROJECT_DIR$/parts/top.php" />
         <option value="$PROJECT_DIR$/parts/functs.php" />
-        <option value="$PROJECT_DIR$/reader.php" />
-        <option value="$PROJECT_DIR$/useraccount.php" />
         <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/useraccount.php" />
+        <option value="$PROJECT_DIR$/Posts/Posts.txt" />
+        <option value="$PROJECT_DIR$/reader.php" />
       </list>
     </option>
   </component>
@@ -178,11 +170,11 @@
     <servers />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
-    <option name="width" value="1295" />
-    <option name="height" value="735" />
+    <option name="width" value="1040" />
+    <option name="height" value="590" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -276,18 +268,25 @@
       <workItem from="1554110695291" duration="587000" />
       <workItem from="1554114045386" duration="4700000" />
       <workItem from="1554194514139" duration="20192000" />
-      <workItem from="1554223469459" duration="3096000" />
+      <workItem from="1554223469459" duration="3774000" />
+      <workItem from="1554275097132" duration="1141000" />
+      <workItem from="1554719143771" duration="3367000" />
+      <workItem from="1554834809793" duration="228000" />
+      <workItem from="1554879868976" duration="3728000" />
+      <workItem from="1554889022673" duration="2677000" />
+      <workItem from="1554896789216" duration="1442000" />
+      <workItem from="1554979784252" duration="1666000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104956000" />
+    <option name="totallyTimeSpent" value="119883000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="-8" y="-8" width="832" height="472" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49463806" weight="0.20415778" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49463806" weight="0.20671141" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.5053619" side_tool="true" weight="0.27449664" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -309,7 +308,7 @@
       <window_info anchor="right" id="Database" order="3" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49463806" visible="true" weight="0.20415778" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49463806" visible="true" weight="0.20671141" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.5053619" side_tool="true" weight="0.27449664" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -373,72 +372,83 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/hardreload()test.php" />
     <entry file="file://$PROJECT_DIR$/Posts/test.json" />
-    <entry file="file://$PROJECT_DIR$/CSS/style.css">
+    <entry file="file://$PROJECT_DIR$/reader.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="118" column="16" selection-start-line="118" selection-start-column="16" selection-end-line="118" selection-end-column="16" />
+        <state relative-caret-position="1054">
+          <caret line="62" column="1" selection-start-line="62" selection-start-column="1" selection-end-line="62" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/recapchalib.php">
+    <entry file="file://$PROJECT_DIR$/parts/functs.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="30" column="3" lean-forward="true" selection-start-line="1" selection-start-column="3" selection-end-line="30" selection-end-column="3" />
-          <folding>
-            <element signature="e#6#1510#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="544">
+          <caret line="32" column="53" selection-start-line="32" selection-start-column="53" selection-end-line="32" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/useraccount.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="114" column="48" selection-start-line="114" selection-start-column="48" selection-end-line="114" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parts/top.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="5" selection-start-column="5" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/users/users.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="216" selection-end-column="216" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/users/template.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="49" selection-start-column="49" selection-end-column="49" />
+          <caret column="123" selection-start-column="123" selection-end-column="128" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/users/users.txt">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/Posts/Posts.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="201" lean-forward="true" selection-start-column="201" selection-end-column="201" />
+          <caret column="151" selection-start-column="151" selection-end-column="151" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader.php">
+    <entry file="file://$PROJECT_DIR$/recapchalib.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
+        <state relative-caret-position="17">
+          <caret line="30" column="3" selection-start-line="1" selection-start-column="3" selection-end-line="30" selection-end-column="3" />
+          <folding>
+            <element signature="e#6#1510#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CSS/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="664">
+          <caret line="118" column="16" selection-start-line="118" selection-start-column="16" selection-end-line="118" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/userImage/Dice - Bitsler.com.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="258" lean-forward="true" selection-start-line="9" selection-start-column="258" selection-end-line="9" selection-end-column="258" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="592">
-          <caret line="305" column="3" lean-forward="true" selection-start-line="195" selection-start-column="3" selection-end-line="305" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/useraccount.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1357">
-          <caret line="131" column="44" selection-start-line="131" selection-start-column="44" selection-end-line="131" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parts/functs.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="37" column="5" lean-forward="true" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parts/top.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="8" lean-forward="true" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
+        <state relative-caret-position="97">
+          <caret line="321" column="18" selection-start-line="321" selection-start-column="18" selection-end-line="321" selection-end-column="18" />
         </state>
       </provider>
     </entry>

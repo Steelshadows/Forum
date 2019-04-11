@@ -2,58 +2,35 @@
 session_start();
 $currentItem = $_GET['item'];
 include 'parts/functs.php';
-//var_dump($fileContent);
 function searchInArray($search_value,$search_array,$key) {
     $it = $search_value;
     $ar = $search_array;
     for($x=0;$x<count($ar);$x++){
-//        var_dump($ar[$x]);
         if ($ar[$x]->$key == $it){
-//            echo"false";
             return $x;
         }
     };
     return false;
 }
-
-//$dir = 'Posts';
-//$handle = fopen($dir.'/Posts.txt','a+');
-//$fileContent = explode('<--->',fread($handle,filesize($dir.'/Posts.txt')));
-//array_pop($fileContent);
-//$loginsignupdir = 'users';
-//$loginsignuphandle = fopen($loginsignupdir.'/users.txt','a+');
-//$userDB = explode('<--->',fread($loginsignuphandle,filesize($loginsignupdir.'/users.txt')));
-//array_pop($userDB);
-
-
-//echo json_decode($userDB[searchInArray($fileContent[searchForId()]->user,$fileContent,"username")])->displayname;
-
-
-//$fileContentblanked = $fileContent;
-//for($x=0;$x<count($fileContentblanked);$x++) {
-//    $fileContentblanked[$x] = json_decode($fileContentblanked[$x]);
-//}
-if(!isset($_SESSION['currentuser'])){
-    for($x=0;$x<count($fileContentblanked);$x++){
-        for($y=5;$y<(strlen($fileContentblanked[$x]->user)-3);$y++)
-            $fileContentblanked[$x]->user[$y] = "*";
-    }
-}
-
-//
-//
-//for($x=0;$x<count($fileContent);$x++){
-//    $fileContent[$x] = json_decode($fileContent[$x]);
-//    };
+$rebuild = 0;
 if (isset($_POST['submitComment'])){
     $currentComment = htmlspecialchars($_POST['commentbox']);
     $fileContent[searchForId()]->comments .= '<>'.$_SESSION['currentuser'].'>--< said:<br>'.$currentComment;
-//    echo $fileContent[searchForId()]->comments;
+    $rebuild++;
 }
 if (isset($_POST['killPost'])){
     array_splice($fileContent,searchForId(),1);
-//    $fileContent[searchForId()]->comments .= '<>'.$_SESSION['currentuser'].' said:<br>'.$currentComment;
-//    echo $fileContent[searchForId()]->comments;
+    $rebuild++;
+}
+if (isset($_POST['submit_edit'])){
+    $edit_data = htmlspecialchars($_POST['post_edit']);
+    $editcomment = '<>' . $_SESSION['currentuser'] . '>--< edited this post on: ' . date("Y-m-d H:i:s");
+
+
+
+    $fileContent[searchForId()]->message = $edit_data;
+    $fileContent[searchForId()]->comments .= $editcomment;
+    $rebuild++;
 }
 $allcomments = explode('<>',$fileContent[searchForId()]->comments);
 if(isset($_SESSION['currentuser'])) {
@@ -61,13 +38,9 @@ if(isset($_SESSION['currentuser'])) {
 }
 else {
     $commentboxes =  '<hr><div class="yellowtext">login to comment</div>';
-//    var_dump($_SESSION);
 }
 for($x=0;$x<count($allcomments);$x++){
-//    var_dump($allcomments);
     $displaynames = explode('>--<',$allcomments[$x]);
-//    echo $displaynames[0]."<br>";
-//    echo json_decode($userDB[searchInArray($displaynames[0],$userDB,'username')])->displayname;
     $commentboxes .= '<div><hr>'.$userDB[searchInArray($displaynames[0],$userDB,'username')]->displayname."".$displaynames[1].'</div>';
 
 };
@@ -85,41 +58,53 @@ function searchForId() {
 $killswitch = null;
 if(isset($_SESSION['currentuser'])){
     if($_SESSION['currentuser'] == $fileContent[searchForId()]->user||$_SESSION['currentuser'] == "its.a.me.brand@gmail.com"){
-//      echo "<button onclick=\"alert('please set fire to servers to delete message')\">delete post</button>";
         $killswitch = '<form action="" method="post"><input type="submit" value="delete this post" name="killPost"></form>';
     }
-
 }
 $title = 'Forum BvH - '.$fileContent[searchForId()]->title;
 $newbuild = "";
 include 'parts/top.php';
 
-if (isset($_POST['submitComment'])){
-    for($x=0;$x<count($fileContent);$x++){
-       $newbuild .= json_encode($fileContent[$x]).'<--->';
-    }
-//    echo $newbuild;
-    $overwrite = fopen($dir.'/Posts.txt','w+');
-    fwrite($overwrite,$newbuild);
-    fclose($overwrite);
-    hardreload('?item='.$currentItem);
-}
-if (isset($_POST['killPost'])){
+if ($rebuild != 0){
     for($x=0;$x<count($fileContent);$x++){
         $newbuild .= json_encode($fileContent[$x]).'<--->';
     }
-//    echo $newbuild;
     $overwrite = fopen($dir.'/Posts.txt','w+');
     fwrite($overwrite,$newbuild);
     fclose($overwrite);
-    hardreload("home");
+    if (isset($_POST['killPost'])){
+        hardreload('home');
+    }
+    else{
+        hardreload('?item='.$currentItem);
+    }
+
+}
+if(isset($_SESSION['currentuser'])) {
+    if ($_SESSION['currentuser'] == $fileContent[searchForId()]->user){
+        $editpost = '
+        <hr>
+        <button onclick="document.getElementById(\'edit_post\').style.display=\'table\';this.style.display=\'none\'">edit post</button>
+        <div style="display: none;" id="edit_post"><form method="post" action="reader.php?item=' . $currentItem . '" enctype="multipart/form-data">
+        <div><textarea name="post_edit" class="responsive_100_wide" placeholder="your post" required>'.$fileContent[searchForId()]->message.'</textarea></div>
+        <div><input type="submit" name="submit_edit" value="commit"></form></div></div>';
+    }
+}
+else {
+    $editpost = null;
 }
 
 
-
 echo $killswitch;
-echo '<div><a href="index.php"><button>return</button></a></div><hr><div>'.$userDB[searchInArray($fileContent[searchForId()]->user,$userDB,"username")]->displayname.'\'s message: </div><br>';
+echo '<div>
+            <a href="index.php">
+                <button>return</button>
+            </a>
+        </div>
+        <hr>
+        <div>'.$userDB[searchInArray($fileContent[searchForId()]->user,$userDB,"username")]->displayname.'\'s message: </div><br>';
 echo $fileContent[searchForId()]->message;
+echo $editpost;
 echo $commentboxes;
 include 'parts/bottom.php';
 ?>

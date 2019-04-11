@@ -193,117 +193,116 @@ $create_post = '<div class="yellowtext">login to create posts</div>';
 $userlogo = null;
 //var_dump($_COOKIE);
 
-//if(!isset($_SESSION[$cookie_name])) {
-//    $introtext = '<div>Welkom, guest<br>
-//    <button id="showhidelogin" onclick="document.getElementById(\'loginform\').style.display=\'table\';this.style.display=\'none\';document.getElementById(\'showhidesignup\').style.display=\'none\'">Login</button>
-//    <form name="login" method="post" id="loginform" style="display:none">
-//        <div class="row">
-//            <div class="cell">username: </div>
-//            <div class="cell"><input type="text" name="username" placeholder="username" required></div>
-//        </div>
-//        <div class="row">
-//            <div class="cell">password:</div>
-//            <div class="cell"><input type="password" name="password" placeholder="password" required></div>
-//        </div>
-//        <div class="row">
-//            <div class="cell"></div>
-//            <div class="cell"><input type="submit" name="submitlogin" value="login"></div>
-//        </div>
-//    </form>
-//    <button id="showhidesignup" onclick="document.getElementById(\'signupform\').style.display=\'table\';this.style.display=\'none\';document.getElementById(\'showhidelogin\').style.display=\'none\'">Signup</button>
-//    <form name="signup" method="post" id="signupform" style="display:none" enctype="multipart/form-data">
-//        <div class="row">
-//            <div class="cell">Username: </div>
-//            <div class="cell"><input type="text" name="username" placeholder="username" required></div>
-//        </div>
-//        <div class="row">
-//            <div class="cell">Displayname: </div>
-//            <div class="cell"><input type="text" name="displayname" placeholder="username" required></div>
-//        </div>
-//        <div class="row">
-//            <div class="cell">Password:</div>
-//            <div class="cell"><input type="password" name="password" placeholder="password" required></div>
-//        </div>
-//        <div class="row">
-//            <div class="cell">Password check:</div>
-//            <div class="cell"><input type="password" name="passwordcheck" placeholder="password check" required></div>
-//        </div>
-//        <div class="row">
-//            <div class="cell">Profile Picture:</div>
-//            <div class="cell"><input type="file" name="picture" placeholder="profile image"></div>
-//        </div>
-//        <div class="row">
-//            <div class="cell"></div>
-//            <div class="cell"><input type="submit" name="submitsignup" value="sign-in"></div>
-//        </div>
-//    </form></div>';
-//} else {
-//    $currentusername = $_SESSION[$cookie_name];
-//    $introtext = '<h3>Welkom, ' . $currentusername . '</h3>
-//<div><a href="useraccount.php?user='.$currentusername.'"><button>your user bio</button></a></div>
-//<form action="" method="post"><input type="submit" name="logout" value="logout"></form>';
-//
-//
-//
-////    echo json_decode($userDB[searchForId($_SESSION[$cookie_name],$userDB,"username")])->src;
-////    var_dump($userDB);
-//    if (file_exists($userDB[searchForId($_SESSION[$cookie_name],$userDB,"username")]->src)) {
-////            var_dump($userDB);
-//            $userlogo = '<img class="logo" src="'.$userDB[searchForId($_SESSION[$cookie_name],$userDB,"username")]->src.'">';
+if(!isset($_SESSION[$cookie_name])) {
+    $introtext = '<div>Welkom, guest<br>
+    <button id="showhidelogin" onclick="document.getElementById(\'loginform\').style.display=\'table\';this.style.display=\'none\';document.getElementById(\'showhidesignup\').style.display=\'none\'">Login</button>
+    <form name="login" method="post" id="loginform" style="display:none">
+        <div class="row">
+            <div class="cell">username: </div>
+            <div class="cell"><input type="text" name="username" placeholder="username" required></div>
+        </div>
+        <div class="row">
+            <div class="cell">password:</div>
+            <div class="cell"><input type="password" name="password" placeholder="password" required></div>
+        </div>
+        <div class="row">
+            <div class="cell"></div>
+            <div class="cell"><input type="submit" name="submitlogin" value="login"></div>
+        </div>
+    </form>
+    <button id="showhidesignup" onclick="document.getElementById(\'signupform\').style.display=\'table\';this.style.display=\'none\';document.getElementById(\'showhidelogin\').style.display=\'none\'">Signup</button>
+    <form name="signup" method="post" id="signupform" style="display:none" enctype="multipart/form-data">
+        <div class="row">
+            <div class="cell">Username: </div>
+            <div class="cell"><input type="text" name="username" placeholder="username" required></div>
+        </div>
+        <div class="row">
+            <div class="cell">Displayname: </div>
+            <div class="cell"><input type="text" name="displayname" placeholder="username" required></div>
+        </div>
+        <div class="row">
+            <div class="cell">Password:</div>
+            <div class="cell"><input type="password" name="password" placeholder="password" required></div>
+        </div>
+        <div class="row">
+            <div class="cell">Password check:</div>
+            <div class="cell"><input type="password" name="passwordcheck" placeholder="password check" required></div>
+        </div>
+        <div class="row">
+            <div class="cell">Profile Picture:</div>
+            <div class="cell"><input type="file" name="picture" placeholder="profile image"></div>
+        </div>
+        <div class="row">
+            <div class="cell"></div>
+            <div class="cell"><input type="submit" name="submitsignup" value="sign-in"></div>
+        </div>
+    </form></div>';
+} else {
+    $currentusername = $_SESSION[$cookie_name];
+    $introtext = '<h3>Welkom, ' . $currentusername . '</h3>
+<div><a href="useraccount.php?user='.$currentusername.'"><button>your user bio</button></a></div>
+<form action="" method="post"><input type="submit" name="logout" value="logout"></form>';
+
+
+
+//    echo json_decode($userDB[searchForId($_SESSION[$cookie_name],$userDB,"username")])->src;
+//    var_dump($userDB);
+    if (file_exists($userDB[searchForId($_SESSION[$cookie_name],$userDB,"username")]->src)) {
+//            var_dump($userDB);
+            $userlogo = '<img class="logo" src="'.$userDB[searchForId($_SESSION[$cookie_name],$userDB,"username")]->src.'">';
+    }
+    else{
+        $userlogo = '<img class="logo" src="userImage/guest.png">';
+    }
+//    $postLis = null ;
+//    for($x=0;$x<count($fileContent);$x++){
+//        if (searchForId($_SESSION[$cookie_name],$fileContent,'user')) {
+//            echo searchForId($_SESSION[$cookie_name],$fileContent,'user')d;
+//            $fileContent[$x] = json_decode($fileContent[$x]);
+//            $postLis .= '<a href="reader.php?item=' . $fileContent[$x]->title . '" class="row">';
+//            $postLis .= '<div class="cell">titel:</div>';
+//            $postLis .= '<div class="cell">' . $fileContent[$x]->title . '</div>';
+//            $postLis .= '<div class="cell">user:</div>';
+//            $postLis .= '<div class="cell" style="font-size: 0.5em;">' . $fileContent[$x]->user . '</div>';
+//            $postLis .= '</a>';
+//        }
 //    }
-//    else{
-//        $userlogo = '<img class="logo" src="userImage/guest.png">';
+//    if ($postLis != null){
+//        echo "user posts: ";
+//        $postLis .= "<hr>";
+//        echo $postLis;
 //    }
-////    $postLis = null ;
-////    for($x=0;$x<count($fileContent);$x++){
-////        if (searchForId($_SESSION[$cookie_name],$fileContent,'user')) {
-////            echo searchForId($_SESSION[$cookie_name],$fileContent,'user')d;
-////            $fileContent[$x] = json_decode($fileContent[$x]);
-////            $postLis .= '<a href="reader.php?item=' . $fileContent[$x]->title . '" class="row">';
-////            $postLis .= '<div class="cell">titel:</div>';
-////            $postLis .= '<div class="cell">' . $fileContent[$x]->title . '</div>';
-////            $postLis .= '<div class="cell">user:</div>';
-////            $postLis .= '<div class="cell" style="font-size: 0.5em;">' . $fileContent[$x]->user . '</div>';
-////            $postLis .= '</a>';
-////        }
-////    }
-////    if ($postLis != null){
-////        echo "user posts: ";
-////        $postLis .= "<hr>";
-////        echo $postLis;
-////    }
-//    $create_post = null;
-//    $create_post .= '
-//    <button onclick="document.getElementById(\'createPost\').style.display=\'table\';this.style.display=\'none\'">create post</button>
-//    <form id="createPost" style="display:none" method="post">
-//        <h4>create post</h4>
-//<!--        <label for="user">user: </label><input type="email" name="user" required><br><br>-->
-//        <div class="row">
-//            <input class="cell" type="hidden" name="user" required value="'.$_SESSION[$cookie_name].'">
-//            <label class="cell responsive_hide" for="title">title: </label><input class="responsive_100_wide" type="text" name="title" maxlength="20" placeholder="Title" required><br><br>
-//        </div>
-//        <div class="row">
-//            <label class="cell responsive_hide" for="message">post: </label><textarea class="responsive_100_wide" name="message" placeholder="Post" required></textarea><br><br>
-//        </div>
-//        <div class="row">
-//            <div class="cell responsive_hide">
-//                Recapcha:
-//            </div>
-//            <div class="cell">
-//                <div class="g-recaptcha responsive_100_wide" data-sitekey="6LdmupkUAAAAAMojiX7nQeH7jUE-YqIEQPpoWxAe"></div>
-//            </div>
-//        </div>
-//        <div class="row">
-//            <div class="cell responsive_hide">
-//            </div>
-//            <div class="cell">
-//                <input class="cell responsive_100_wide" type="submit" name="submit" value="submit post">
-//            </div>
-//        </div>
-//    </form></div>';
-//    $loginbuttons = "";
-//
-//}
+    $create_post = null;
+    $create_post .= '
+    <button onclick="document.getElementById(\'createPost\').style.display=\'table\';this.style.display=\'none\'">create post</button>
+    <form id="createPost" style="display:none" method="post">
+        <h4>create post</h4>
+<!--        <label for="user">user: </label><input type="email" name="user" required><br><br>-->
+        <div class="row">
+            <input class="cell" type="hidden" name="user" required value="'.$_SESSION[$cookie_name].'">
+            <label class="cell responsive_hide" for="title">title: </label><input class="responsive_100_wide" type="text" name="title" maxlength="20" placeholder="Title" required><br><br>
+        </div>
+        <div class="row">
+            <label class="cell responsive_hide" for="message">post: </label><textarea class="responsive_100_wide" name="message" placeholder="Post" required></textarea><br><br>
+        </div>
+        <div class="row">
+            <div class="cell responsive_hide">
+                Recapcha:
+            </div>
+            <div class="cell">
+                <div class="g-recaptcha responsive_100_wide" data-sitekey="6LdmupkUAAAAAMojiX7nQeH7jUE-YqIEQPpoWxAe"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="cell responsive_hide">
+            </div>
+                <input class="responsive_100_wide" type="submit" name="submit" value="submit post">
+            </div>
+        </div>
+    </form></div>';
+    $loginbuttons = "";
+
+}
 
 if(isset($_POST['submit'])&&isset($_SESSION['currentuser'])&&$response != null && $response->success){
 //    var_dump($_POST['g-recaptcha-response']);

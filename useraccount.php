@@ -112,7 +112,7 @@ if(isset($_SESSION['currentuser'])) {
         <div><textarea name="bio_edit" class="responsive_100_wide" placeholder="your personal bio" required>'.$userbio.'</textarea></div>
         <div><input type="text" class="responsive_100_wide" name="displayname_edit" placeholder="display name" value="'.$userDB[searchForId()]->displayname.'"></div>
         <div><input type="file" class="responsive_100_wide" name="picture" placeholder="profile image"></div>
-        <input type="submit" name="submit_edit"></form>';
+        <input type="submit" name="submit_edit" value="commit"></form>';
     }
     else {
         $editaccountinfo = null;
